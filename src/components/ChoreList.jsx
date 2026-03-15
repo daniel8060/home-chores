@@ -5,6 +5,8 @@ import { FREQUENCY_LABELS, FREQUENCY_ORDER } from '../data/chores';
 
 export default function ChoreList({ chores, completions, filter, crimsonDayOff, onAddCompletion }) {
   const [pendingChore, setPendingChore] = useState(null);
+  // All sections open by default
+  const [collapsed, setCollapsed] = useState({});
 
   // Build map: choreId -> last completion
   const lastCompletionMap = {};
@@ -36,7 +38,6 @@ export default function ChoreList({ chores, completions, filter, crimsonDayOff, 
     if (needsPrompt) {
       setPendingChore(chore);
     } else {
-      // Auto-assign: if crimson day off and this is litter box, crimson does it
       let completedBy = chore.owner;
       if (chore.id === 'litter-box' && crimsonDayOff) {
         completedBy = 'crimson';
@@ -52,23 +53,38 @@ export default function ChoreList({ chores, completions, filter, crimsonDayOff, 
     }
   };
 
+  const toggleCollapsed = (freq) => {
+    setCollapsed((prev) => ({ ...prev, [freq]: !prev[freq] }));
+  };
+
   const renderGroup = (freq) => {
     const group = grouped[freq];
     if (!group || group.length === 0) return null;
+    const isCollapsed = !!collapsed[freq];
     return (
       <section key={freq} className="chore-group">
-        <h3 className="chore-group__heading">{FREQUENCY_LABELS[freq]}</h3>
-        <div className="chore-group__rows">
-          {group.map((chore) => (
-            <ChoreRow
-              key={chore.id}
-              chore={chore}
-              lastCompletion={lastCompletionMap[chore.id] || null}
-              choreCompletions={choreCompletionsMap[chore.id] || []}
-              onMarkDone={handleMarkDone}
-            />
-          ))}
-        </div>
+        <button
+          className={`chore-group__heading chore-group__heading--btn ${isCollapsed ? 'chore-group__heading--collapsed' : ''}`}
+          onClick={() => toggleCollapsed(freq)}
+          aria-expanded={!isCollapsed}
+        >
+          <span>{FREQUENCY_LABELS[freq]}</span>
+          <span className="chore-group__count">{group.length}</span>
+          <span className="chore-group__chevron">{isCollapsed ? '›' : '‹'}</span>
+        </button>
+        {!isCollapsed && (
+          <div className="chore-group__rows">
+            {group.map((chore) => (
+              <ChoreRow
+                key={chore.id}
+                chore={chore}
+                lastCompletion={lastCompletionMap[chore.id] || null}
+                choreCompletions={choreCompletionsMap[chore.id] || []}
+                onMarkDone={handleMarkDone}
+              />
+            ))}
+          </div>
+        )}
       </section>
     );
   };

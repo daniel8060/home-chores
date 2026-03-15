@@ -14,13 +14,11 @@ export default function Dashboard({ completions }) {
       <div className="stat-cards">
         <div className="stat-card stat-card--daniel">
           <div className="stat-card__label">Daniel</div>
-          <div className="stat-card__count">{danielCount}</div>
-          <div className="stat-card__sub">chores done</div>
+          <div className="stat-card__sub">{danielCount} chores done</div>
         </div>
         <div className="stat-card stat-card--crimson">
           <div className="stat-card__label">Crimson</div>
-          <div className="stat-card__count">{crimsonCount}</div>
-          <div className="stat-card__sub">chores done</div>
+          <div className="stat-card__sub">{crimsonCount} chores done</div>
         </div>
       </div>
     </div>
