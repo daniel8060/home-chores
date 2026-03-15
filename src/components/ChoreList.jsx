@@ -52,6 +52,27 @@ export default function ChoreList({ chores, completions, filter, crimsonDayOff, 
     }
   };
 
+  const renderGroup = (freq) => {
+    const group = grouped[freq];
+    if (!group || group.length === 0) return null;
+    return (
+      <section key={freq} className="chore-group">
+        <h3 className="chore-group__heading">{FREQUENCY_LABELS[freq]}</h3>
+        <div className="chore-group__rows">
+          {group.map((chore) => (
+            <ChoreRow
+              key={chore.id}
+              chore={chore}
+              lastCompletion={lastCompletionMap[chore.id] || null}
+              choreCompletions={choreCompletionsMap[chore.id] || []}
+              onMarkDone={handleMarkDone}
+            />
+          ))}
+        </div>
+      </section>
+    );
+  };
+
   return (
     <div className="chore-list">
       {pendingChore && (
@@ -62,26 +83,16 @@ export default function ChoreList({ chores, completions, filter, crimsonDayOff, 
         />
       )}
 
-      {FREQUENCY_ORDER.map((freq) => {
-        const group = grouped[freq];
-        if (!group || group.length === 0) return null;
-        return (
-          <section key={freq} className="chore-group">
-            <h3 className="chore-group__heading">{FREQUENCY_LABELS[freq]}</h3>
-            <div className="chore-group__rows">
-              {group.map((chore) => (
-                <ChoreRow
-                  key={chore.id}
-                  chore={chore}
-                  lastCompletion={lastCompletionMap[chore.id] || null}
-                  choreCompletions={choreCompletionsMap[chore.id] || []}
-                  onMarkDone={handleMarkDone}
-                />
-              ))}
-            </div>
-          </section>
-        );
-      })}
+      <div className="chore-columns">
+        <div className="chore-col">
+          {renderGroup('daily')}
+          {renderGroup('weekly')}
+        </div>
+        <div className="chore-col">
+          {renderGroup('biweekly')}
+          {renderGroup('monthly')}
+        </div>
+      </div>
     </div>
   );
 }

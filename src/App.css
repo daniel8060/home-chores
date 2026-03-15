@@ -209,6 +209,14 @@
   color: var(--text);
 }
 
+/* ── Two-column layout ────────────────────────────────────── */
+.chore-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 24px;
+  align-items: start;
+}
+
 /* ── Chore groups ─────────────────────────────────────────── */
 .chore-group {
   margin-bottom: 28px;
@@ -236,8 +244,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 12px 14px;
+  gap: 8px;
+  padding: 10px 10px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -261,12 +269,12 @@
 }
 
 .chore-row__name {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 4px;
+  gap: 6px;
+  margin-bottom: 3px;
 }
 
 .chore-row__notes {
@@ -339,8 +347,8 @@
 .btn {
   border: none;
   border-radius: 7px;
-  padding: 7px 14px;
-  font-size: 13px;
+  padding: 6px 11px;
+  font-size: 12px;
   font-weight: 600;
   transition: filter 0.15s, transform 0.1s;
 }
