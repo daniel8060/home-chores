@@ -1,0 +1,94 @@
+/* ── CSS custom properties ─────────────────────────────────── */
+:root {
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+
+  /* Light theme */
+  --bg: #f8f8fa;
+  --surface: #ffffff;
+  --surface-alt: #f2f2f5;
+  --border: #e2e2e8;
+  --text: #1a1a2e;
+  --text-muted: #6b6b80;
+  --text-inv: #ffffff;
+
+  --daniel: #166534;
+  --daniel-bg: #f0fdf4;
+  --daniel-border: #bbf7d0;
+  --crimson: #dc2626;
+  --crimson-bg: #fff1f2;
+  --crimson-border: #fecaca;
+  --both: #6b7280;
+  --both-bg: #f3f4f6;
+  --both-border: #d1d5db;
+  --flexible: #8b5cf6;
+  --flexible-bg: #f5f3ff;
+  --flexible-border: #ddd6fe;
+
+  --overdue-red-bg: #fff1f2;
+  --overdue-red-border: #fecdd3;
+  --overdue-amber-bg: #fffbeb;
+  --overdue-amber-border: #fde68a;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.07), 0 1px 2px rgba(0,0,0,.05);
+  --shadow: 0 4px 12px rgba(0,0,0,.08);
+
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Dark theme */
+[data-theme='dark'] {
+  --bg: #0f0f14;
+  --surface: #1a1a24;
+  --surface-alt: #22222e;
+  --border: #2e2e3e;
+  --text: #e2e2f0;
+  --text-muted: #8888a8;
+  --text-inv: #0f0f14;
+
+  --daniel: #4ade80;
+  --daniel-bg: #052e16;
+  --daniel-border: #166534;
+  --crimson: #f87171;
+  --crimson-bg: #450a0a;
+  --crimson-border: #991b1b;
+  --both: #9ca3af;
+  --both-bg: #1f2937;
+  --both-border: #374151;
+  --flexible: #a78bfa;
+  --flexible-bg: #2e1065;
+  --flexible-border: #4c1d95;
+
+  --overdue-red-bg: #2d0a10;
+  --overdue-red-border: #7f1d1d;
+  --overdue-amber-bg: #1c1500;
+  --overdue-amber-border: #78350f;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+#root {
+  min-height: 100dvh;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-weight: 600;
+  color: var(--text);
+}
