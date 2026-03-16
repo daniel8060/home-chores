@@ -20,6 +20,16 @@ export const apiPut    = (path, body)  => request('PUT',    path, body);
 export const apiDelete = (path)        => request('DELETE', path);
 
 /**
+ * Parse a YYYY-MM-DD date string as local noon.
+ * Using noon avoids UTC-offset issues where new Date('2026-03-16') would be
+ * interpreted as UTC midnight, potentially landing on the previous local day.
+ */
+function dateToLocalTimestamp(dateStr) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  return new Date(y, m - 1, d, 12, 0, 0).getTime();
+}
+
+/**
  * Map a raw completion row from the API to the shape the frontend expects.
  * Adds a `timestamp` (Unix ms) field for backward-compat with time.js utilities.
  */
@@ -29,8 +39,8 @@ export function mapCompletion(row) {
     choreId:     row.chore_id,
     choreName:   row.chore_name,
     completedBy: row.completed_by,
-    completedAt: row.completed_at,          // ISO string
-    timestamp:   new Date(row.completed_at).getTime(), // ms — used by timeAgo, isOverdue, etc.
+    completedAt: row.completed_at,                      // YYYY-MM-DD
+    timestamp:   dateToLocalTimestamp(row.completed_at), // local noon ms
     notes:       row.notes || '',
   };
 }

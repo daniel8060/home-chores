@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react';
 
-/** Format a Date as the value required by <input type="datetime-local"> */
-function toDatetimeLocal(date) {
+/** Format a Date as the value required by <input type="date"> → YYYY-MM-DD */
+function toDateInput(date) {
   const d = new Date(date);
   const pad = (n) => String(n).padStart(2, '0');
-  return (
-    `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}` +
-    `T${pad(d.getHours())}:${pad(d.getMinutes())}`
-  );
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 }
 
 /**
@@ -31,7 +28,7 @@ export default function WhoDidItModal({ chore, crimsonDayOff, onConfirm, onCance
 
   const [person, setPerson]           = useState(defaultPerson);
   const [notes, setNotes]             = useState('');
-  const [completedAt, setCompletedAt] = useState(() => toDatetimeLocal(new Date()));
+  const [completedAt, setCompletedAt] = useState(() => toDateInput(new Date()));
 
   // Close on Escape
   useEffect(() => {
@@ -42,7 +39,7 @@ export default function WhoDidItModal({ chore, crimsonDayOff, onConfirm, onCance
 
   const handleSubmit = () => {
     if (!person) return;
-    onConfirm(person, notes.trim(), new Date(completedAt).toISOString());
+    onConfirm(person, notes.trim(), completedAt); // completedAt is already YYYY-MM-DD
   };
 
   return (
@@ -80,9 +77,10 @@ export default function WhoDidItModal({ chore, crimsonDayOff, onConfirm, onCance
         <label className="modal__field">
           <span className="modal__field-label">When</span>
           <input
-            type="datetime-local"
+            type="date"
             className="modal__datetime"
             value={completedAt}
+            max={toDateInput(new Date())}
             onChange={(e) => setCompletedAt(e.target.value)}
           />
         </label>

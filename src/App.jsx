@@ -52,7 +52,7 @@ export default function App() {
       chore_id:     choreId,
       chore_name:   choreName,
       completed_by: completedBy,
-      completed_at: completedAt || new Date().toISOString(),
+      completed_at: completedAt || new Date().toLocaleDateString('en-CA'), // YYYY-MM-DD
       notes:        notes || '',
     });
     // Reload completions so board/calendar/dashboard reflect the new entry

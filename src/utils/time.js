@@ -1,21 +1,25 @@
 import { FREQUENCY_DAYS } from '../data/chores';
 
 /**
- * Returns a human-readable "X ago" label for a timestamp.
+ * Returns a human-readable label for a timestamp.
+ * Since completions only have date granularity, sub-day labels are omitted.
  */
 export function timeAgo(timestamp) {
   if (!timestamp) return null;
-  const now = Date.now();
-  const diff = now - timestamp;
-  const minutes = Math.floor(diff / 60_000);
-  const hours = Math.floor(diff / 3_600_000);
-  const days = Math.floor(diff / 86_400_000);
+  const now = new Date();
+  const d = new Date(timestamp);
+  // Compare calendar dates (local time) to avoid "yesterday" at 11:55 PM
+  const todayStart   = new Date(now.getFullYear(),   now.getMonth(),   now.getDate()).getTime();
+  const completedDay = new Date(d.getFullYear(),     d.getMonth(),     d.getDate()).getTime();
+  const diffDays = Math.round((todayStart - completedDay) / 86_400_000);
 
-  if (minutes < 1) return 'just now';
-  if (minutes < 60) return `${minutes}m ago`;
-  if (hours < 24) return `${hours}h ago`;
-  if (days === 1) return '1 day ago';
-  return `${days} days ago`;
+  if (diffDays === 0) return 'Today';
+  if (diffDays === 1) return 'Yesterday';
+  if (diffDays < 14)  return `${diffDays} days ago`;
+  if (diffDays < 21)  return '2 weeks ago';
+  if (diffDays < 60)  return `${Math.floor(diffDays / 7)} weeks ago`;
+  if (diffDays < 45)  return '1 month ago';
+  return `${Math.floor(diffDays / 30)} months ago`;
 }
 
 /**
@@ -54,14 +58,13 @@ export function startOfWeek() {
 }
 
 /**
- * Format a timestamp as a readable date/time string.
+ * Format a timestamp as a readable date string (no time).
  */
 export function formatDateTime(timestamp) {
-  return new Date(timestamp).toLocaleString(undefined, {
+  return new Date(timestamp).toLocaleDateString(undefined, {
     month: 'short',
     day: 'numeric',
-    hour: 'numeric',
-    minute: '2-digit',
+    year: 'numeric',
   });
 }
 
