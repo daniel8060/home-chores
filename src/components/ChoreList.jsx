@@ -5,10 +5,9 @@ import { FREQUENCY_LABELS, FREQUENCY_ORDER } from '../data/chores';
 
 export default function ChoreList({ chores, completions, filter, crimsonDayOff, onAddCompletion }) {
   const [pendingChore, setPendingChore] = useState(null);
-  // All sections open by default
   const [collapsed, setCollapsed] = useState({});
 
-  // Build map: choreId -> last completion
+  // Build maps: choreId → last completion, choreId → all completions[]
   const lastCompletionMap = {};
   const choreCompletionsMap = {};
   for (const c of completions) {
@@ -33,24 +32,16 @@ export default function ChoreList({ chores, completions, filter, crimsonDayOff, 
     grouped[freq] = filteredChores.filter((c) => c.frequency === freq);
   }
 
+  // Always open the modal — for single-owner chores the modal skips the picker
   const handleMarkDone = (chore) => {
-    const needsPrompt = chore.owner === 'both' || chore.owner === 'flexible';
-    if (needsPrompt) {
-      setPendingChore(chore);
-    } else {
-      let completedBy = chore.owner;
-      if (chore.id === 'litter-box' && crimsonDayOff) {
-        completedBy = 'crimson';
-      }
-      onAddCompletion(chore.id, completedBy);
-    }
+    setPendingChore(chore);
   };
 
-  const handleWhoDidIt = (person) => {
-    if (pendingChore) {
-      onAddCompletion(pendingChore.id, person);
-      setPendingChore(null);
-    }
+  // Called when the modal is confirmed: person + notes + completedAt
+  const handleConfirm = (person, notes, completedAt) => {
+    if (!pendingChore) return;
+    onAddCompletion(pendingChore.id, pendingChore.name, person, notes, completedAt);
+    setPendingChore(null);
   };
 
   const toggleCollapsed = (freq) => {
@@ -93,8 +84,9 @@ export default function ChoreList({ chores, completions, filter, crimsonDayOff, 
     <div className="chore-list">
       {pendingChore && (
         <WhoDidItModal
-          choreName={pendingChore.name}
-          onSelect={handleWhoDidIt}
+          chore={pendingChore}
+          crimsonDayOff={crimsonDayOff}
+          onConfirm={handleConfirm}
           onCancel={() => setPendingChore(null)}
         />
       )}

@@ -1,0 +1,6 @@
+chores.db
+chores.db-shm
+chores.db-wal
+.venv/
+__pycache__/
+*.pyc

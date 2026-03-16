@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "npm run build && rsync -avz --delete dist/ ulmo:/var/www/html/"
+    "deploy": "npm run build && rsync -avz --delete dist/ ulmo:/var/www/html/",
+    "deploy:server": "rsync -avz --delete server/ ulmo:~/chore-api/"
   },
   "dependencies": {
     "react": "^19.2.4",
