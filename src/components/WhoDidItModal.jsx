@@ -17,14 +17,14 @@ function toDateInput(date) {
  *   onCancel()   — called on cancel / Escape
  */
 export default function WhoDidItModal({ chore, crimsonDayOff, onConfirm, onCancel }) {
-  const needsPicker = chore.owner === 'both' || chore.owner === 'flexible';
-
-  // Determine the pre-selected person for single-owner chores
-  const defaultPerson = needsPicker
-    ? null
-    : chore.id === 'litter-box' && crimsonDayOff
-      ? 'crimson'
-      : chore.owner;
+  // Pre-select the expected owner so single-owner chores are still one-tap;
+  // both/flexible start with no selection so a deliberate choice is required.
+  const defaultPerson =
+    chore.owner === 'both' || chore.owner === 'flexible'
+      ? null
+      : chore.id === 'litter-box' && crimsonDayOff
+        ? 'crimson'
+        : chore.owner;
 
   const [person, setPerson]           = useState(defaultPerson);
   const [notes, setNotes]             = useState('');
@@ -48,30 +48,24 @@ export default function WhoDidItModal({ chore, crimsonDayOff, onConfirm, onCance
         <h3 className="modal__title">Log chore</h3>
         <p className="modal__chore">{chore.name}</p>
 
-        {/* Person picker — only for both/flexible chores */}
-        {needsPicker ? (
-          <div className="modal__person-picker">
-            <span className="modal__field-label">Who did it?</span>
-            <div className="modal__buttons">
-              <button
-                className={`btn btn--daniel ${person === 'daniel' ? 'btn--selected' : ''}`}
-                onClick={() => setPerson('daniel')}
-              >
-                Daniel
-              </button>
-              <button
-                className={`btn btn--crimson ${person === 'crimson' ? 'btn--selected' : ''}`}
-                onClick={() => setPerson('crimson')}
-              >
-                Crimson
-              </button>
-            </div>
+        {/* Person picker — always shown for every chore */}
+        <div className="modal__person-picker">
+          <span className="modal__field-label">Who did it?</span>
+          <div className="modal__buttons">
+            <button
+              className={`btn btn--daniel ${person === 'daniel' ? 'btn--selected' : ''}`}
+              onClick={() => setPerson('daniel')}
+            >
+              Daniel
+            </button>
+            <button
+              className={`btn btn--crimson ${person === 'crimson' ? 'btn--selected' : ''}`}
+              onClick={() => setPerson('crimson')}
+            >
+              Crimson
+            </button>
           </div>
-        ) : (
-          <p className="modal__person-label">
-            Done by: <strong>{person === 'daniel' ? 'Daniel' : 'Crimson'}</strong>
-          </p>
-        )}
+        </div>
 
         {/* When */}
         <label className="modal__field">
