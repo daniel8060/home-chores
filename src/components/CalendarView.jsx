@@ -178,14 +178,11 @@ export default function CalendarView({ completions, chores }) {
                         {c.completedBy === 'daniel' ? 'Daniel' : 'Crimson'}
                       </span>
                       <span className="cal-detail__chore-name">
-                        {chore ? chore.name : c.choreId}
+                        {chore ? chore.name : c.choreName}
                       </span>
-                      <span className="cal-detail__time">
-                        {new Date(c.timestamp).toLocaleTimeString(undefined, {
-                          hour: 'numeric',
-                          minute: '2-digit',
-                        })}
-                      </span>
+                      {c.notes && (
+                        <span className="cal-detail__time">{c.notes}</span>
+                      )}
                     </li>
                   );
                 })}
