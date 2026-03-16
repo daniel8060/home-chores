@@ -5,6 +5,7 @@ import Dashboard from './components/Dashboard';
 import ChoreList from './components/ChoreList';
 import HistoryLog from './components/HistoryLog';
 import CalendarView from './components/CalendarView';
+import ManageTab from './components/ManageTab';
 import './App.css';
 
 export default function App() {
@@ -169,6 +170,14 @@ export default function App() {
             <HistoryLog refreshToken={refreshToken} />
           </>
         )}
+
+        {tab === 'manage' && (
+          <ManageTab
+            chores={chores}
+            refreshToken={refreshToken}
+            onDataChanged={loadData}
+          />
+        )}
       </main>
     </div>
   );
@@ -178,6 +187,7 @@ const TABS = [
   { id: 'board',    label: 'Board'    },
   { id: 'calendar', label: 'Calendar' },
   { id: 'history',  label: 'History'  },
+  { id: 'manage',   label: 'Manage'   },
 ];
 
 const FILTERS = [

@@ -3,7 +3,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from database import get_db, init_db
-from models import ChoreCreate, ChoreUpdate, CompletionCreate
+from models import ChoreCreate, ChoreUpdate, CompletionCreate, CompletionUpdate
 
 app = FastAPI(title="Chore Tracker API")
 
@@ -98,6 +98,20 @@ def create_completion(body: CompletionCreate):
              body.completed_at, body.notes),
         )
         return {"id": cur.lastrowid}
+
+
+@app.put("/api/completions/{completion_id}")
+def update_completion(completion_id: int, body: CompletionUpdate):
+    fields = {k: v for k, v in body.model_dump().items() if v is not None}
+    if not fields:
+        raise HTTPException(400, "No fields to update")
+    set_clause = ", ".join(f"{k} = ?" for k in fields)
+    with get_db() as db:
+        db.execute(
+            f"UPDATE completions SET {set_clause} WHERE id = ?",
+            (*fields.values(), completion_id),
+        )
+    return {"ok": True}
 
 
 @app.delete("/api/completions")

@@ -391,6 +391,139 @@
   border-color: #7c2d12;
 }
 
+/* ── Manage tab ───────────────────────────────────────────── */
+.manage-tab {
+  padding-bottom: 48px;
+}
+
+.manage-section {
+  margin-bottom: 40px;
+}
+
+.manage-section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--border);
+}
+
+.manage-section__title {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+.manage-freq-group {
+  margin-bottom: 20px;
+}
+
+.manage-freq-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  padding: 0 0 6px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+.manage-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 3px;
+}
+
+.manage-row__info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.manage-row__name {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.manage-row__notes {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-style: italic;
+  flex-basis: 100%;
+  margin-top: 1px;
+}
+
+.manage-row__actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.manage-row__actions--inline {
+  white-space: nowrap;
+}
+
+/* Icon buttons (edit / delete) */
+.btn--icon {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 7px;
+  font-size: 13px;
+  line-height: 1;
+  transition: background 0.15s;
+}
+.btn--icon:hover { background: var(--surface-alt); }
+.btn--icon-danger:hover { background: #fff1f2; border-color: #fca5a5; }
+[data-theme='dark'] .btn--icon-danger:hover { background: #2d0a10; border-color: #7f1d1d; }
+
+/* Add chore button */
+.btn--add {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.btn--add:hover { filter: brightness(0.95); }
+
+/* Choice button group (owner / frequency pickers in ChoreFormModal) */
+.modal__choice-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.choice-btn {
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface-alt);
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.15s;
+}
+.choice-btn:hover { color: var(--text); border-color: var(--text-muted); }
+
+.choice-btn--selected         { color: var(--text); border-color: var(--text-muted); background: var(--surface); font-weight: 700; }
+.choice-btn--daniel.choice-btn--selected  { background: var(--daniel-bg);  border-color: var(--daniel);  color: var(--daniel);  }
+.choice-btn--crimson.choice-btn--selected { background: var(--crimson-bg); border-color: var(--crimson); color: var(--crimson); }
+.choice-btn--both.choice-btn--selected    { background: var(--both-bg);    border-color: var(--both);    color: var(--both);    }
+.choice-btn--flexible.choice-btn--selected{ background: var(--flexible-bg);border-color: var(--flexible);color: var(--flexible);}
+
 /* ── Buttons ──────────────────────────────────────────────── */
 .btn {
   border: none;

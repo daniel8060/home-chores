@@ -20,6 +20,7 @@ INITIAL_CHORES = [
     {"id": "wipe-stovetop-microwave","name": "Wipe stovetop + microwave",     "owner": "crimson", "frequency": "weekly",   "notes": ""},
     {"id": "grocery-run",          "name": "Grocery run",                     "owner": "both",    "frequency": "weekly",   "notes": ""},
     {"id": "wipe-cat-food-area",   "name": "Wipe cat food area",              "owner": "crimson", "frequency": "weekly",   "notes": ""},
+    {"id": "run-dishwasher-empty", "name": "Run dishwasher empty",            "owner": "both",    "frequency": "weekly",   "notes": "To prevent odors"},
     # Bi-weekly
     {"id": "clean-bathroom",       "name": "Clean bathroom",                  "owner": "both",    "frequency": "biweekly", "notes": ""},
     {"id": "change-bed-sheets",    "name": "Change bed sheets",               "owner": "both",    "frequency": "biweekly", "notes": ""},
@@ -29,7 +30,6 @@ INITIAL_CHORES = [
     {"id": "clean-roomba-bin-brushes",    "name": "Clean Roomba bin + brushes",     "owner": "daniel",  "frequency": "monthly",  "notes": "Full maintenance, not just emptying"},
     {"id": "wipe-baseboards",             "name": "Wipe baseboards",                "owner": "daniel",  "frequency": "monthly",  "notes": ""},
     {"id": "clean-inside-fridge",         "name": "Clean inside fridge",            "owner": "both",    "frequency": "monthly",  "notes": ""},
-    {"id": "clean-oven-dishwasher-interior","name": "Clean oven + dishwasher interior","owner": "daniel","frequency": "monthly",  "notes": ""},
     {"id": "wipe-light-switches-door-handles","name": "Wipe light switches + door handles","owner": "crimson","frequency": "monthly","notes": ""},
 ]
 
